@@ -55,7 +55,7 @@ export async function gacha_f(ctx: Context, config: Config) {
 
     var mdswitch: boolean = false
 
-    //测试推送功能
+    //测试推送功能（？这个注释和功能不匹配啊-->载入数据集）
     const sms_data = await fmp.json_parse(`${root_json}/sms_studata_toaro_stu.json`)
 
     /**
@@ -118,33 +118,23 @@ export async function gacha_f(ctx: Context, config: Config) {
         let pick_in_time = []
         let pick_jp_time = []
         for (let i = 0; i < wiki_data.data.length; i++) {
-            const txt = wiki_data.data[i].title
-            const matches = txt.match(wiki_data.data[i].name_alias);
-            matches ? matches.join('') : '';
+            let stu_name = wiki_data.data[i].name
             if (wiki_data.data[i].server_id == 16) {
                 pick_cn_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
                 pick_cn_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
-                for (let ii = 1; ii < matches.length; ii++) {
-                    const stuid = await StudentMatch(matches[ii])
-                    const stuids = id_to_dbid(stuid[1])
-                    now_pick_cn.push(stuids)
-                }
+                const stuid = name_to_id(stu_name)
+                //TODO: 后续考虑用sms_studata_main完成匹配，sms_studata_toaro_stu可能匹配不全
+                now_pick_cn.push(stuid)
             } else if (wiki_data.data[i].server_id == 15) {
-                pick_jp_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
                 pick_jp_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
-                for (let ii = 1; ii < matches.length; ii++) {
-                    const stuid = await StudentMatch(matches[ii])
-                    const stuids = id_to_dbid(stuid[1])
-                    now_pick_jp.push(stuids)
-                }
+                pick_jp_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
+                const stuid = name_to_id(stu_name)
+                now_pick_jp.push(stuid)
             } else if (wiki_data.data[i].server_id == 17) {
-                pick_in_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
                 pick_in_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
-                for (let ii = 1; ii < matches.length; ii++) {
-                    const stuid = await StudentMatch(matches[ii])
-                    const stuids = id_to_dbid(stuid[1])
-                    now_pick_in.push(stuids)
-                }
+                pick_in_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
+                const stuid = name_to_id(stu_name)
+                now_pick_in.push(stuid)
             }
         }
         console.log({
@@ -191,7 +181,7 @@ export async function gacha_f(ctx: Context, config: Config) {
 
     let gacha_json
     try {
-        //TODO 还要写一个选择不同资源服务的，等fmps完善了再写
+        //TODO: 还要写一个选择不同资源服务的，等fmps完善了再写
         const i = await fmp.file_download(('https://1145141919810-1317895529.cos.ap-chengdu.myqcloud.com/json/gacha_data.json'), root_json, "gacha_data.json")
         gacha_json = await fmp.json_parse(root_json + "/gacha_data.json")
         //ctx.setInterval(async () => gacha_json = await fmp.json_parse(root_json + "/gacha_data.json"), 3 * 60 * 60 * 1000)
@@ -241,6 +231,9 @@ export async function gacha_f(ctx: Context, config: Config) {
             return
         }
         const id = sms_data.filter(i => i.MapName == name)
+        /*TODO:模糊匹配（MapName无法完全对应学生名）
+         *或使用sms_studata_main完成匹配
+         */
         return id[0].Id_db
     }
     function stu_server_jud(stuid) {
@@ -492,7 +485,7 @@ export async function gacha_f(ctx: Context, config: Config) {
                                     },
                                 },
                                 {
-                                    render_data: { label: "查看菜单", style: 1 },
+                                    render_data: { label: "查看抽卡菜单", style: 1 },
                                     action: {
                                         type: 2,
                                         permission: { type: 2 },
@@ -1040,7 +1033,7 @@ ${i2}国服十连 爱丽丝
         })
 
 
-    //TODO 不想封装了，能跑就行
+    //TODO: 完成封装
     ctx.command("ba抽卡/日服十连 <message:text>")
         .action(async ({ session }, message) => {
             const uid = session.event.user.id
@@ -1612,6 +1605,7 @@ ${i2}国服十连 爱丽丝
 
     logger.info('🟢 抽卡模拟器加载完毕')
 
+    //为什么抽漫画没有update到github（恼）
     //Alin’s ba random—manga v2 20244-04-05
     let manga_jsondata = await fmp.json_parse(`${root_json}/manga_main.json`)
     //ctx.setInterval(async () => manga_jsondata = await fmp.json_parse(`${root_json}/manga_main.json`), 3 * 60 * 60 * 1000)
