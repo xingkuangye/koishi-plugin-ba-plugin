@@ -117,26 +117,91 @@ export async function gacha_f(ctx: Context, config: Config) {
         let pick_cn_time = []
         let pick_in_time = []
         let pick_jp_time = []
+        logger.info(`get_gacha_stu: fetched wiki_data, hasData=${!!(wiki_data && wiki_data.data)} count=${wiki_data && wiki_data.data ? wiki_data.data.length : 0}`)
+        if (!wiki_data || !Array.isArray(wiki_data.data)) {
+            logger.info('get_gacha_stu: wiki_data.data is invalid or missing, aborting')
+            return { now_pick_cn: [], pick_cn_time: [], now_pick_jp: [], pick_jp_time: [], now_pick_in: [], pick_in_time: [] }
+        }
         for (let i = 0; i < wiki_data.data.length; i++) {
-            let stu_name = wiki_data.data[i].name
-            if (wiki_data.data[i].server_id == 16) {
-                pick_cn_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
-                pick_cn_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
+            const item = wiki_data.data[i]
+            if (!item) {
+                logger.info(`get_gacha_stu: skipping empty item at index ${i}`)
+                continue
+            }
+            const stu_name = item.name || ''
+            logger.info(`get_gacha_stu: processing index=${i} id=${item.id ?? 'n/a'} name="${stu_name}" server_id=${item.server_id}`)
+            if (item.server_id === 16) {
+                if (item.start_at) {
+                    const s = fmp.formatTimestamp(item.start_at)
+                    pick_cn_time.push(s)
+                    logger.info(`get_gacha_stu: pushed CN start_at for "${stu_name}": ${s}`)
+                } else {
+                    logger.info(`get_gacha_stu: CN start_at missing for "${stu_name}"`)
+                }
+                if (item.end_at) {
+                    const e = fmp.formatTimestamp(item.end_at)
+                    pick_cn_time.push(e)
+                    logger.info(`get_gacha_stu: pushed CN end_at for "${stu_name}": ${e}`)
+                } else {
+                    logger.info(`get_gacha_stu: CN end_at missing for "${stu_name}"`)
+                }
                 const stuid = name_to_id(stu_name)
-                //TODO: 后续考虑用sms_studata_main完成匹配，sms_studata_toaro_stu可能匹配不全
-                now_pick_cn.push(stuid)
-            } else if (wiki_data.data[i].server_id == 15) {
-                pick_jp_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
-                pick_jp_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
+                if (stuid !== undefined && stuid !== null) {
+                    now_pick_cn.push(stuid)
+                    logger.info(`get_gacha_stu: mapped CN name "${stu_name}" -> id ${stuid}`)
+                } else {
+                    logger.info(`get_gacha_stu: failed to map CN name "${stu_name}"`)
+                }
+            } else if (item.server_id === 15) {
+                if (item.start_at) {
+                    const s = fmp.formatTimestamp(item.start_at)
+                    pick_jp_time.push(s)
+                    logger.info(`get_gacha_stu: pushed JP start_at for "${stu_name}": ${s}`)
+                } else {
+                    logger.info(`get_gacha_stu: JP start_at missing for "${stu_name}"`)
+                }
+                if (item.end_at) {
+                    const e = fmp.formatTimestamp(item.end_at)
+                    pick_jp_time.push(e)
+                    logger.info(`get_gacha_stu: pushed JP end_at for "${stu_name}": ${e}`)
+                } else {
+                    logger.info(`get_gacha_stu: JP end_at missing for "${stu_name}"`)
+                }
                 const stuid = name_to_id(stu_name)
-                now_pick_jp.push(stuid)
-            } else if (wiki_data.data[i].server_id == 17) {
-                pick_in_time.push(fmp.formatTimestamp(wiki_data.data[i].end_at))
-                pick_in_time.push(fmp.formatTimestamp(wiki_data.data[i].start_at))
+                if (stuid !== undefined && stuid !== null) {
+                    now_pick_jp.push(stuid)
+                    logger.info(`get_gacha_stu: mapped JP name "${stu_name}" -> id ${stuid}`)
+                } else {
+                    logger.info(`get_gacha_stu: failed to map JP name "${stu_name}"`)
+                }
+            } else if (item.server_id === 17) {
+                if (item.start_at) {
+                    const s = fmp.formatTimestamp(item.start_at)
+                    pick_in_time.push(s)
+                    logger.info(`get_gacha_stu: pushed IN start_at for "${stu_name}": ${s}`)
+                } else {
+                    logger.info(`get_gacha_stu: IN start_at missing for "${stu_name}"`)
+                }
+                if (item.end_at) {
+                    const e = fmp.formatTimestamp(item.end_at)
+                    pick_in_time.push(e)
+                    logger.info(`get_gacha_stu: pushed IN end_at for "${stu_name}": ${e}`)
+                } else {
+                    logger.info(`get_gacha_stu: IN end_at missing for "${stu_name}"`)
+                }
                 const stuid = name_to_id(stu_name)
-                now_pick_in.push(stuid)
+                if (stuid !== undefined && stuid !== null) {
+                    now_pick_in.push(stuid)
+                    logger.info(`get_gacha_stu: mapped IN name "${stu_name}" -> id ${stuid}`)
+                } else {
+                    logger.info(`get_gacha_stu: failed to map IN name "${stu_name}"`)
+                }
+            } else {
+                logger.info(`get_gacha_stu: skipping unknown server_id=${item.server_id} for "${stu_name}"`)
             }
         }
+        logger.info(`get_gacha_stu: finished processing. CN picks=${now_pick_cn.length}, JP picks=${now_pick_jp.length}, IN picks=${now_pick_in.length}`)
+        logger.info(`get_gacha_stu: pick_cn_time=${JSON.stringify(pick_cn_time)}, pick_jp_time=${JSON.stringify(pick_jp_time)}, pick_in_time=${JSON.stringify(pick_in_time)}`)
         console.log({
             now_pick_cn,
             pick_cn_time,
@@ -227,13 +292,14 @@ export async function gacha_f(ctx: Context, config: Config) {
         return ids[0].Id_db
     }
     function name_to_id(name) {
-        if (name.length == 0) {
-            return
+        if (!name || name.length === 0) {
+            return undefined
         }
         const id = sms_data.filter(i => i.MapName == name)
         /*TODO:模糊匹配（MapName无法完全对应学生名）
          *或使用sms_studata_main完成匹配
          */
+        if (!id || id.length === 0) return undefined
         return id[0].Id_db
     }
     function stu_server_jud(stuid) {
