@@ -14,10 +14,6 @@
 
 </div>
 
-### 声明 
-
-###### 我是菜比，我是笨比🏳️🏳️
-
 ### 🔗快速链接
 - 体验插件功能：与我们的 [**QQ官方机器人AL_1S**](https://qun.qq.com/qunpro/robot/qunshare?robot_uin=2854197266&robot_appid=102062652&biz_type=0) 交互。
 
