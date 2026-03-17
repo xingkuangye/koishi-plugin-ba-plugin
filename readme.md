@@ -1,33 +1,30 @@
-<div align="center">
+<img src="https://raw.githubusercontent.com/AL-1S-QQBOT/koishi-plugin-ba-plugin/main/logo2.png" width = "130" height = "176" align=right />
 
-# koishi-plugin-ba-plugin
-
-
-<img src="https://raw.githubusercontent.com/Alin-sky/koishi-plugin-ba-plugin/main/logo2.png" width="130" height="176">
+<div align="left">
 
 # BlueArchive—碧蓝档案工具箱
 
 [![npm](https://img.shields.io/npm/v/koishi-plugin-ba-plugin?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-ba-plugin)
 [![npm downloads](https://img.shields.io/npm/dm/koishi-plugin-ba-plugin)](https://www.npmjs.com/package/koishi-plugin-ba-plugin)
 ![node version](https://img.shields.io/badge/node-%3E%3D18-green)
-![GitHub top language](https://img.shields.io/github/languages/top/Alin-sky/koishi-plugin-ba-plugin?logo=github)
+![GitHub top language](https://img.shields.io/github/languages/top/AL-1S-QQBOT/koishi-plugin-ba-plugin?logo=github)
 
 </div>
 
-### 🔗快速链接
-- 体验插件功能：与我们的 [**QQ官方机器人AL_1S**](https://qun.qq.com/qunpro/robot/qunshare?robot_uin=2854197266&robot_appid=102062652&biz_type=0) 交互。
+## 🔗 快速链接
+- 体验插件功能：与我们的[![QQ官方机器人AL_1S](https://img.shields.io/badge/QQ官方机器人-AL_1S-blue)](https://qun.qq.com/qunpro/robot/qunshare?robot_uin=2854197266&robot_appid=102062652&biz_type=0)交互。
 
-## 🌟特性介绍
+## ✨ 项目介绍
 
 #### 1.0版本亮点
-- 适配官方bot，自动更新json数据🔄
-- 全面重构旧功能
-- 优化和修复已知问题🛠️
+- 🤖 适配官方bot，自动更新json数据
+- 🚧 全面重构旧功能
+- 🛠️ 优化和修复已知问题
 
-#### ⚙️技术架构
+#### ⚙️ 技术架构
 - 本项目是 [koishi](https://github.com/koishijs/koishi) 机器人框架的一个插件，需在 koishi 中使用。
 
-## 🌈目前功能
+## 🌈 目前功能
 
 - [x] Aronabot的攻略图 
 - [x] 角色好感升级所需计算
@@ -37,37 +34,52 @@
 - [x] 抽卡模拟器
 - [x] bawiki推图攻略 
 - [x] 活动查询 
-- [x] 数据自动更新 
+- [x] 数据自动更新
+- [ ] 学生生日查询
+- [ ] 功能权限管理
 
-## 🛠️使用
+## 🛠️ 使用
 
-#### 📦安装部署
+#### 📦 安装部署
 ```bash
 npm install koishi-plugin-ba-plugin
 ```
 ---
-## 🙏项目感谢
+## 🙏 感谢
 
-| 贡献者 （按首字母排序，不分先后）           | 主要贡献                                                        |
-| :------------------------------------------ | :-------------------------------------------------------------- |
-| [diyigemt](https://github.com/diyigemt)     | 开放了API，提供了[Arona](https://github.com/diyigemt/arona)数据 |
-| [エルル](https://github.com/erurusion)      | 抽卡模拟、抽群u等功能  (1.0前)                                  |
-| [lgc-NB2Dev](https://github.com/lgc-NB2Dev) | 提供[ba-wiki](https://github.com/lgc-NB2Dev/bawiki-data)数据库  |
-| [Sanaene](https://github.com/Sanaene)       | 攒钻计算、好感计算、等级计算、学生匹配、总力模拟等算法，tql     |
-| [shangxue](https://www.npmjs.com/~shangxue) | bawiki推图攻略的数据，还有些技术帮助~                           |
-| [xingkuangye](https://github.com/xingkuangye) |                     |
+感谢以下开发者的贡献
+
+<a href="https://github.com/AL-1S-QQBOT/koishi-plugin-ba-plugin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AL-1S-QQBOT/koishi-plugin-ba-plugin&max=200&columns=14" />
+</a>
+
+同时，也感谢以下项目的支持
                          
-交互和功能设计灵感借鉴了[arona](https://github.com/diyigemt/arona)
+- 交互和功能设计灵感：[arona](https://github.com/diyigemt/arona)
 和[NoneBot-Plugin-BAWiki](https://github.com/lgc-NB2Dev/nonebot-plugin-bawiki)
+- 数据库：[ba-wiki](https://github.com/lgc-NB2Dev/bawiki-data)
+- 档线数据：[什亭之匣](https://arona.icu/)
 
-感谢各位巨佬的指导🙏<br/>
-感谢各位巨佬帮忙测试🙏<br/>
-感谢巨佬的[ba-wiki](https://github.com/lgc-NB2Dev/bawiki-data)数据库🙏<br/>
-感谢巨佬的[什亭之匣](https://arona.icu/)的档线数据🙏
+## ❤️ 贡献
 
-## ❤️支持
+欢迎任何 Issues/Pull Requests！只需要将你的更改提交到此项目即可喵
 
-[爱发电](https://afdian.com/a/alin-sky)，感谢大家的赞助咪😽
+### 如何贡献
+
+你可以通过查看 Issue 或帮助审核 PR 来贡献。任何 Issue 或 PR 都欢迎参与。当然，这些只是建议，你可以以任何方式进行贡献。
+
+如果想要添加新的功能，请先通过 Issue 讨论。
+
+## ⭐ Star
+
+> [!TIP]
+> 如果本项目对您产生了帮助，或者您期待着本项目的未来发展，请给项目 Star，这是我们维护这个开源项目的动力喵
+
+<div align="center">
+
+[![Star History Chart](https://api.star-history.com/svg?repos=AL-1S-QQBOT/koishi-plugin-ba-plugin&type=Date)](https://star-history.com/#AL-1S-QQBOT/koishi-plugin-ba-plugin&Date)
+
+</div>
 
 ## 📃更新日志
 <details>
@@ -288,3 +300,7 @@ npm install koishi-plugin-ba-plugin
   - 发包！拥有角色评测图功能、抽卡模拟功能
 
 </details>
+
+## 🍻 支持
+
+[爱发电](https://afdian.com/a/alin-sky)，感谢大家的赞助咪😽
