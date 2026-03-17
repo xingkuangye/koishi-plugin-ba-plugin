@@ -52,7 +52,6 @@ npm install koishi-plugin-ba-plugin
 <a href="https://github.com/AL-1S-QQBOT/koishi-plugin-ba-plugin/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=AL-1S-QQBOT/koishi-plugin-ba-plugin&max=200&columns=14" />
 </a>
-</br>
 
 同时，也感谢以下项目的支持
                          
