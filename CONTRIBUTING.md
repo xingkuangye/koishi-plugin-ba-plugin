@@ -15,7 +15,7 @@
 
 如果您在使用 ba-plugin 时遇到任何问题，请按照以下步骤报告：
 
-1. **检查现有问题**：在提交新问题之前，请先检查 [Issues](https://github.com/Alin-sky/koishi-plugin-ba-plugin/issues?q=label%3Abug) 中是否已经存在类似的问题。
+1. **检查现有问题**：在提交新问题之前，请先检查 [Issues](https://github.com/AL-1S-QQBOT/koishi-plugin-ba-plugin/issues?q=label%3A%22%E5%BC%82%E5%B8%B8%20%7C%20bug%22) 中是否已经存在类似的问题。
 2. **创建新问题**：如果没有类似的问题，请创建一个新问题。请确保提供以下信息：
    - 问题的简要描述
    - 重现问题的步骤
